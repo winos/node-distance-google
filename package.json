@@ -16,6 +16,10 @@
     "q": "^1.4.1",
     "request": "^2.74.0"
   },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/winos/node-distance-google"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.0.2"
