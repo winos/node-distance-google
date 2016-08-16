@@ -24,10 +24,39 @@ describe('Client', function () {
       done()
     })
 
-    it('params should be an json objects', (done) => {
+    it('should be params an json objects', (done) => {
       expect(() => googleApiDistance.createClient('stringParamsFail'))
         .to.throw(ReferenceError, /is not permitted/)
       done()
+    })
+  })
+
+  describe('Get Data Distance', function () {
+
+    it('should return error with wrong or null params', (done) => {
+      var client  = googleApiDistance.createClient()
+      ,   params = {}
+
+      expect(() => client.getDistance(params)).to.throw(Error, /params is null/)
+      done()
+    })
+
+    it('should return distance data', () => {
+      var client  = googleApiDistance.createClient()
+
+      var params = {
+        origins:'37.430622, -122.138174',
+        destinations:'37.432599, -122.136221',
+        mode: 'walk'
+      }
+
+      return client.getDistance(params).then((data) => {
+        //console.log(data.distance);
+        expect(data).to.have.property('distance').and.be.a('string').and.be.equals('1.2 km')
+        expect(data).to.have.property('origin').and.be.a('string')
+        expect(data).to.have.property('destination').and.be.a('string')
+        expect(data).to.have.property('duration').and.be.a('string')
+      })
     })
   })
 })
